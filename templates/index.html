@@ -1,0 +1,90 @@
+<html>
+<head>
+	<title> Video Streaming </title>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            box-sizing: border-box;
+            text-align: center;
+            background: #fae9de;
+        }
+
+        #header{
+            font-size: 25px;
+            font-weight: 700;
+            color: #EA6A12;
+            margin: 20px;
+        }
+        
+        button{
+            display: inline;
+            width: 10%;
+            height: 30px;
+            background: #EA6A12;
+            color: white;
+            border-radius : 5px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        button:hover{
+            opacity: 0.8;
+        }
+
+        button:active{
+          background-color: #EA6A12;
+        }
+        
+        img{
+            width: 50%;
+            margin-bottom: 10px;
+        }
+      </style>
+</head>
+<body>
+	<div id="header"> 
+		<p id="value">VIDEO STREAMING</p> 
+	</div>
+
+    <div class="player">
+        <img id="1">
+    </div>
+	
+    <div>
+        <button id="SETUP">SETUP</button>
+        <button id="PLAY">PLAY</button>
+        <button id="PAUSE">PAUSE</button>
+    </div>
+	<script type="text/javascript" charset="utf-8">
+		const socket = io();
+        let INIT = 0;
+        let READY = 1;
+        let PLAYING = 2;
+
+        socket.on('response', function(msg){
+            const img = document.getElementById(1);
+            img.src = "data:image/jpeg;base64," + msg;
+        });
+
+        $('document').ready(()=>{
+            const playButton = document.getElementById("PLAY");
+            playButton.addEventListener('click',() => {
+                socket.emit("PLAY");
+            });
+            const setupButton = document.getElementById("SETUP");
+            setupButton.addEventListener('click',() => {
+                socket.emit("SETUP");
+            });
+            const pauseButton = document.getElementById("PAUSE");
+            pauseButton.addEventListener('click',() => {
+                socket.emit("PAUSE");
+            });
+        });
+    </script>
+</body>
+</html>
