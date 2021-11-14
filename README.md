@@ -1,8 +1,7 @@
-# Video Streaming On Browser - Assignment 1 Computer Network - For Major Program
+# Computer Network - Assignment 1 - For Major Program
 # Student Name: Ngo Thi Ha Bac - Student ID: 1912700
 
 ### How to run
-- Run command:
 ```python
 python main.py
 ```
